@@ -289,8 +289,7 @@ class _SmoothCompassState extends State<SmoothCompass> {
         width: widget.width ?? MediaQuery.of(context).size.shortestSide * 0.8,
         decoration: const BoxDecoration(
             image: DecorationImage(
-                image: AssetImage('assets/images/compass.png',
-                    package: 'smooth_compass'),
+                image: AssetImage('assets/images/compass.png'),
                 fit: BoxFit.cover)),
       ),
     );
