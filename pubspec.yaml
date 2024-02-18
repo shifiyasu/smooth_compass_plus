@@ -1,10 +1,10 @@
-name: smooth_compass
+name: smooth_compass_plus
 description: smooth compass with animated rotation and custom widgets support for both(android and ios)
-version: 1.0.2
-homepage: https://github.com/alihadi5125/smooth_compass
+version: 1.0.3
+homepage: https://github.com/Ahmad-Ayman/smooth_compass_plus
 
 environment:
-  sdk: ">=2.17.5 <3.0.0"
+  sdk: '>=3.2.3 <4.0.0'
   flutter: ">=1.17.0"
 
 dependencies:
@@ -12,7 +12,9 @@ dependencies:
     sdk: flutter
 
   flutter_sensors: ^1.0.1
-  vector_math: ^2.1.2
+#  sensors_plus: ^4.0.2
+  vector_math: ^2.1.4
+  location: ^5.0.3
 
 dev_dependencies:
   flutter_test:

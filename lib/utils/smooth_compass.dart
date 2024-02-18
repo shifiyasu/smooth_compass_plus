@@ -4,10 +4,13 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 
+// import 'package:flutter_sensors/flutter_sensors.dart';
+
 import 'package:flutter_sensors/flutter_sensors.dart';
 import 'package:vector_math/vector_math.dart';
 
 import 'src/compass_ui.dart';
+import 'src/qibla_utils.dart';
 
 part 'src/compass.dart';
 
@@ -29,8 +32,9 @@ class Compass {
   ///Returns a stream to receive the compass updates.
   ///
   ///Remember to close the stream after using it.
-  Stream<CompassModel> compassUpdates({Duration? interval, double? azimuthFix}) =>
-      _compass.compassUpdates(interval!, azimuthFix!);
+  Stream<CompassModel> compassUpdates(
+      {Duration? interval, double? azimuthFix, MyLoc? currentLoc}) =>
+      _compass.compassUpdates(interval!, azimuthFix!, myLoc: currentLoc);
 
   /// Checks if the sensors needed for the compass to work are available.
   ///

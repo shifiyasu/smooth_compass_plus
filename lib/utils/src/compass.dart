@@ -1,23 +1,28 @@
 part of flutter_sensor_compass;
 
 class _Compass {
-  List<double> _rotationMatrix = List.filled(9, 0.0);
+  final List<double> _rotationMatrix = List.filled(9, 0.0);
   double _azimuth = 0.0;
   double azimuthFix = 0.0;
+  double qiblah = 0.0;
+  double x = 0, y = 0;
   final List<_CompassStreamSubscription> _updatesSubscriptions = [];
+
+  // ignore: cancel_subscriptions
   StreamSubscription<SensorEvent>? _rotationSensorStream;
-  StreamController<double> _internalUpdateController =
-      StreamController.broadcast();
+  final StreamController<double> _internalUpdateController =
+  StreamController.broadcast();
 
   /// Starts the compass updates.
-  Stream<CompassModel> compassUpdates(Duration interval, double azimuthFix) {
+  Stream<CompassModel> compassUpdates(Duration? interval, double azimuthFix,
+      {MyLoc? myLoc}) {
     this.azimuthFix = azimuthFix;
     // ignore: close_sinks
     StreamController<CompassModel>? compassStreamController;
     _CompassStreamSubscription? compassStreamSubscription;
     // ignore: cancel_subscriptions
     StreamSubscription<double> compassSubscription =
-        _internalUpdateController.stream.listen((value) {
+    _internalUpdateController.stream.listen((value) {
       if (interval != null) {
         DateTime instant = DateTime.now();
         int difference = instant
@@ -29,7 +34,9 @@ class _Compass {
           compassStreamSubscription.lastUpdated = instant;
         }
       }
-      compassStreamController!.add(getCompassValues(value));
+
+      compassStreamController!.add(
+          getCompassValues(value, myLoc?.latitude ?? 0, myLoc?.longitude ?? 0));
     });
     compassSubscription.onDone(() {
       _updatesSubscriptions.remove(compassStreamSubscription);
@@ -67,7 +74,7 @@ class _Compass {
   void _startRotationSensor() async {
     final stream = await SensorManager().sensorUpdates(
       sensorId: Sensors.ROTATION,
-      interval: Sensors.SENSOR_DELAY_UI,
+      interval: Sensors.SENSOR_DELAY_NORMAL,
     );
     _rotationSensorStream = stream.listen((event) {
       if (Platform.isAndroid) {
@@ -91,6 +98,7 @@ class _Compass {
   void _stopSensor() {
     if (_sensorStarted()) {
       _rotationSensorStream!.cancel();
+
       _rotationSensorStream = null;
     }
   }
@@ -104,6 +112,8 @@ class _Compass {
     double q1 = rotationVector[0];
     double q2 = rotationVector[1];
     double q3 = rotationVector[2];
+    x = q1;
+    y = q2;
     if (rotationVector.length == 4) {
       q0 = rotationVector[3];
     } else {
@@ -156,4 +166,25 @@ class _CompassStreamSubscription {
   _CompassStreamSubscription(this.subscription) {
     lastUpdated = DateTime.now();
   }
+}
+
+///to get Qibla direction
+double getQiblaDirection(
+    double latitude, double longitude, double headingValue) {
+  if (latitude != 0 && longitude != 0) {
+    final offSet = Utils.getOffsetFromNorth(latitude, longitude);
+
+    // Adjust Qiblah direction based on North direction
+    return offSet;
+  } else {
+    return 0;
+  }
+}
+
+// location model
+class MyLoc {
+  double latitude;
+  double longitude;
+
+  MyLoc({required this.latitude, required this.longitude});
 }
