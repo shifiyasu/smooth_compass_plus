@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smooth_compass/utils/src/compass_ui.dart';
+import 'package:smooth_compass_plus/utils/src/compass_ui.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -8,14 +8,14 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: SmoothCompass(
+        child: SmoothCompassWidget(
           rotationSpeed: 200,
           height: 300,
 isQiblahCompass: true,
           width: 300,
 
           compassBuilder: (context,AsyncSnapshot<CompassModel>? compassData,Widget compassAsset){
-            print( compassData?.data?.qiblahOffset);
+
             return  AnimatedRotation(
               turns: compassData?.data?.turns??0/360,
               duration: const Duration(milliseconds: 400),

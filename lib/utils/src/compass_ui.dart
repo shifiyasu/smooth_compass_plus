@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 
-import '../smooth_compass.dart';
+import '../smooth_compass_plus.dart';
 import 'widgets/error_widget.dart';
 
 double preValue = 0;
@@ -13,7 +13,7 @@ double turns = 0;
 typedef WidgetBuilder = Widget Function(BuildContext context,
     AsyncSnapshot<CompassModel>? compassData, Widget compassAsset);
 
-class SmoothCompass extends StatefulWidget {
+class SmoothCompassWidget extends StatefulWidget {
   final WidgetBuilder? compassBuilder;
   final Widget? compassAsset;
   final Widget? loadingAnimation;
@@ -22,7 +22,7 @@ class SmoothCompass extends StatefulWidget {
   final double? width;
   final bool? isQiblahCompass;
 
-  const SmoothCompass(
+  const SmoothCompassWidget(
       {Key? key,
         this.compassBuilder,
         this.compassAsset,
@@ -34,10 +34,10 @@ class SmoothCompass extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<SmoothCompass> createState() => _SmoothCompassState();
+  State<SmoothCompassWidget> createState() => _SmoothCompassWidgetState();
 }
 
-class _SmoothCompassState extends State<SmoothCompass> {
+class _SmoothCompassWidgetState extends State<SmoothCompassWidget> {
   var location = Location();
 
   @override

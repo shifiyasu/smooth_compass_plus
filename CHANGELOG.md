@@ -1,3 +1,3 @@
-## 1.0.2
+## 0.0.1+2
 
-* TODO: Describe initial release.
+* Updated version of Smooth Compass with latest Flutter and Dart SDK versions

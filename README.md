@@ -1,12 +1,12 @@
-# Smooth Compass
+# Smooth Compass Plus
 
 [comment]: <> ([![Awesome Flutter]&#40;https://img.shields.io/badge/Awesome-Flutter-52bdeb.svg?longCache=true&style=flat-square&#41;]&#40;https://github.com/Solido/awesome-flutter&#41;)
 
-Customizable flutter package to find direction using device motion sensors.
+Updated Version of the original Smooth Compass with latest Flutter SDK version, It's a Customizable flutter package to find direction using device motion sensors with ability to detect Qiblah.
 
 | ![Image](https://github.com/alihadi5125/screenshots/blob/main/ezgif.com-gif-maker%20(3).gif?raw=true) | ![Image](https://github.com/alihadi5125/screenshots/blob/main/ezgif.com-gif-maker%20(1).gif?raw=true) |
-| :------------: | :------------: |
-| **SmoothCompass** with default Widget | **SmoothCompass** with custom Widget |
+|:-----------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------------:|
+|                              **SmoothCompassWidget** with default Widget                              |                              **SmoothCompassWidget** with custom Widget                               |
 
 ## Features
 
@@ -19,7 +19,7 @@ Customizable flutter package to find direction using device motion sensors.
 
 ## Usage
 
-Make sure to check out [examples](https://github.com/alihadi5125/smooth_compass/tree/master/example)
+Make sure to check out [examples](https://github.com/Ahmad-Ayman/smooth_compass_plus/blob/master/example)
 
 ### Installation
 
@@ -27,24 +27,30 @@ Add the following line to `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  smooth_compass: ^1.0.2
+  smooth_compass_plus: latest-version
+```
+
+Upgrade Kotlin version to latest version:
+
+```gradle
+ext.kotlin_version: latest-version
 ```
 
 ### Basic setup
 
-*The complete example is available [here](https://github.com/alihadi5125/smooth_compass/tree/master/example).*
+*The complete example is available [here](https://github.com/Ahmad-Ayman/smooth_compass_plus/blob/master/example).*
 
-**SmoothCompass** requires you to provide `compassBuilder` which returns:
+**SmoothCompassWidget** requires you to provide `compassBuilder` which returns:
 * `degrees` is the directional value.
 * `turns` is the value for compass rotation.
 * `compassAsset` the (default) widget for compass.
 
-**SmoothCompass** Optional Arguments `Height`, `Width`, `Duration` and `compassAsset`:
+**SmoothCompassWidget** Optional Arguments `Height`, `Width`, `Duration` and `compassAsset`:
 * `compassAsset` is the customizable widget for compass. if not provider default will shown.
   
 **Default Widget**:
 ```dart
-SmoothCompass(
+SmoothCompassWidget(
  rotationSpeed: 200,
  height: 300,
  width: 300,
@@ -57,7 +63,7 @@ SmoothCompass(
 
 **Custom Widget**:
 ```dart
-SmoothCompass(
+SmoothCompassWidget(
  rotationSpeed: 200,
  height: 300,
  width: 300,
@@ -78,9 +84,56 @@ SmoothCompass(
   ),
 ```
 
+**Custom Widget with Qiblah**:
+```dart
+SmoothCompassWidget(
+ rotationSpeed: 200,
+ height: 300,
+ isQiblahCompass: true,
+ width: 300,
+ compassBuilder: (context,AsyncSnapshot<CompassModel>? compassData,Widget compassAsset){
+   return AnimatedRotation(
+      turns: compassData?.data?.turns??0/360,
+      duration: const Duration(milliseconds: 400),
+      child: SizedBox(
+        height: 200, 
+        width: 200,
+        child: Stack(
+          children: [
+          //put your compass here
+            Positioned(
+              top: 0,
+               left: 0,
+               right: 0,
+               bottom: 0,
+               child: Image.asset("Your Compass Asset Here",
+                   fit: BoxFit.fill),
+            ),
+
+            //put your qiblah needle here
+            Positioned(
+              top: 20,
+              left: 0,
+              right: 0,
+              bottom: 20,
+              child: AnimatedRotation(
+                turns: (compassData?.data?.qiblahOffset??0)/360,
+                duration: const Duration(milliseconds: 400),
+                child: Image.asset("Your needle asset here",
+                  fit: BoxFit.fitHeight),
+              ),
+            )
+          ],
+        ),
+      ),
+   );
+ },
+),
+```
+
 #### Support
 
 for any queries or issue contact at:
-* alihadi5125@gmail.com
-* fadiktk000@gmail.com
+* aayman@turndigital.net
+
 
