@@ -1,3 +1,3 @@
-## 0.0.1+2
+## 0.0.1+4
 
-* Updated version of Smooth Compass with latest Flutter and Dart SDK versions
+* Add Customization for Error Widgets

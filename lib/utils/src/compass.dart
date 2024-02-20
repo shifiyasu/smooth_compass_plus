@@ -1,4 +1,4 @@
-part of flutter_sensor_compass;
+part of '../smooth_compass_plus.dart';
 
 class _Compass {
   final List<double> _rotationMatrix = List.filled(9, 0.0);
@@ -11,7 +11,7 @@ class _Compass {
   // ignore: cancel_subscriptions
   StreamSubscription<SensorEvent>? _rotationSensorStream;
   final StreamController<double> _internalUpdateController =
-  StreamController.broadcast();
+      StreamController.broadcast();
 
   /// Starts the compass updates.
   Stream<CompassModel> compassUpdates(Duration? interval, double azimuthFix,
@@ -22,7 +22,7 @@ class _Compass {
     _CompassStreamSubscription? compassStreamSubscription;
     // ignore: cancel_subscriptions
     StreamSubscription<double> compassSubscription =
-    _internalUpdateController.stream.listen((value) {
+        _internalUpdateController.stream.listen((value) {
       if (interval != null) {
         DateTime instant = DateTime.now();
         int difference = instant

@@ -11,13 +11,12 @@ class HomePage extends StatelessWidget {
         child: SmoothCompassWidget(
           rotationSpeed: 200,
           height: 300,
-isQiblahCompass: true,
+          isQiblahCompass: true,
           width: 300,
-
-          compassBuilder: (context,AsyncSnapshot<CompassModel>? compassData,Widget compassAsset){
-
-            return  AnimatedRotation(
-              turns: compassData?.data?.turns??0/360,
+          compassBuilder: (context, AsyncSnapshot<CompassModel>? compassData,
+              Widget compassAsset) {
+            return AnimatedRotation(
+              turns: compassData?.data?.turns ?? 0 / 360,
               duration: const Duration(milliseconds: 400),
               child: SizedBox(
                 height: 200,
@@ -43,7 +42,7 @@ isQiblahCompass: true,
                       right: 0,
                       bottom: 20,
                       child: AnimatedRotation(
-                        turns: (compassData?.data?.qiblahOffset??0)/360,
+                        turns: (compassData?.data?.qiblahOffset ?? 0) / 360,
                         duration: const Duration(milliseconds: 400),
                         child: Image.asset(
                           "assets/images/needle.png",
