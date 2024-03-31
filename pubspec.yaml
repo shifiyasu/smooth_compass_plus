@@ -4,9 +4,8 @@ version: 0.0.1+4
 homepage: https://github.com/Ahmad-Ayman/smooth_compass_plus
 repository: https://github.com/Ahmad-Ayman/smooth_compass_plus
 
-
 environment:
-  sdk: '>=3.2.3 <4.0.0'
+  sdk: ">=3.2.3 <4.0.0"
   flutter: ">=1.17.0"
 
 dependencies:
@@ -16,7 +15,7 @@ dependencies:
   flutter_sensors: ^1.0.1
 
   vector_math: ^2.1.4
-  location: ^5.0.3
+  location: ^6.0.0
 platforms:
   android:
   ios:
@@ -26,13 +25,11 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^3.0.1
 
-
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter packages.
 flutter:
-
   # To add assets to your package, add an assets section, like this:
   assets:
     - assets/images/
